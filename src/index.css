@@ -1,0 +1,48 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Override Venalabs SDK theme */
+:root {
+  /* Primary colors */
+  --venalabs-primary: 168 85 247; /* purple-500 */
+  --venalabs-primary-hover: 147 51 234; /* purple-600 */
+
+  /* Status colors */
+  --venalabs-success: 168 85 247; /* green-500 */
+  --venalabs-warning: 234 179 8; /* yellow-500 */
+  --venalabs-error: 239 68 68; /* red-500 */
+  --venalabs-info: 59 130 246; /* blue-500 */
+
+  /* Text colors */
+  --venalabs-text: 255 255 255;
+  --venalabs-text-muted: 156 163 175; /* gray-400 */
+
+  /* Background colors */
+  --venalabs-background: 17 24 39; /* gray-900 */
+  --venalabs-background-card: 31 41 55; /* gray-800 */
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  background-color: #0a0a0a;
+  color: #ffffff;
+}
+
+#root {
+  height: 100%;
+}
+
+.flex-1 {
+  flex: 1;
+  min-height: 0;
+}
