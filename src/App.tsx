@@ -16,8 +16,9 @@ function App() {
       throw new Error(`Failed to get access token: ${response.status}`);
     }
 
+    // The token endpoint answers { token }
     const data = await response.json();
-    return data.accessToken;
+    return data.token;
   }, []);
 
   return (
@@ -39,7 +40,7 @@ function App() {
         }}
       >
         <h1 style={{ fontSize: "20px", fontWeight: 600 }}>
-          Venalabs Stellar SDK Demo
+          VenaLabs Stellar SDK Demo
         </h1>
         <p style={{ fontSize: "14px", color: "#888", marginTop: "4px" }}>
           Testing integration with @venalabs/stellar-sdk

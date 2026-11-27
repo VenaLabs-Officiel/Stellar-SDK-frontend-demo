@@ -1,13 +1,13 @@
-# Venalabs Frontend SDK Demo
+# VenaLabs Frontend SDK Demo
 
-Demo React + Vite application showcasing the integration of `@venalabs/stellar-sdk` — a React component library for Venalabs educational courses with Stellar blockchain wallet support.
+Demo React + Vite application showcasing the integration of [`@venalabs/stellar-sdk`](https://github.com/VenaLabs-Officiel/Stellar-SDK) 2.1.0, a React component library for VenaLabs courses with Stellar wallet support.
 
 ## Prerequisites
 
-- Node.js 18+
+- Node.js 20+
 - npm or yarn
-- Backend running on port 8081 (see `venalabs-backend-sdk`)
-- An API key from the Saas dashboard
+- Backend running on port 8081 (see [Stellar-SDK-backend-demo](https://github.com/VenaLabs-Officiel/Stellar-SDK-backend-demo))
+- An API key from the [VenaLabs dashboard](https://venalabs.com/en/saas/admin/sdk-integration)
 
 ## Setup
 
@@ -28,7 +28,6 @@ yarn install
 | `npm run dev`     | Start dev server on http://localhost:5173 |
 | `npm run build`   | TypeScript check + production build       |
 | `npm run preview` | Preview the production build locally      |
-| `npm run lint`    | Run ESLint on `src/`                      |
 
 ## Project Structure
 
@@ -36,8 +35,7 @@ yarn install
 src/
 ├── main.tsx        # React entry point
 ├── App.tsx         # Main component with SDK integration
-├── index.css       # Global styles & SDK theme overrides
-└── vite-env.d.ts   # Vite TypeScript env declarations
+└── index.css       # Global styles & SDK theme overrides
 ```
 
 ## SDK Integration
@@ -53,7 +51,7 @@ import "@venalabs/stellar-sdk/style.css";
   getAccessToken={async () => {
     const res = await fetch("/api/venalabs-token", { credentials: "include" });
     const data = await res.json();
-    return data.accessToken;
+    return data.token;
   }}
   lang="fr"
   stellarNetwork="TESTNET"
@@ -66,7 +64,7 @@ import "@venalabs/stellar-sdk/style.css";
 
 | Prop                | Type                    | Required | Description                                 |
 | ------------------- | ----------------------- | -------- | ------------------------------------------- |
-| `apiKey`            | `string`                | Yes      | API key from the Saas dashboard             |
+| `apiKey`            | `string`                | Yes      | API key from the VenaLabs dashboard         |
 | `getAccessToken`    | `() => Promise<string>` | Yes      | Async function that returns an access token |
 | `lang`              | `'fr' \| 'en'`          | No       | UI language (default: `'en'`)               |
 | `stellarNetwork`    | `'TESTNET' \| 'PUBLIC'` | No       | Stellar network to use                      |
@@ -74,6 +72,10 @@ import "@venalabs/stellar-sdk/style.css";
 | `minHeight`         | `string \| number`      | No       | Minimum height of the SDK container         |
 | `className`         | `string`                | No       | Additional CSS class for the container      |
 | `externalWalletKit` | `StellarWalletsKit`     | No       | Pre-configured Stellar wallet kit instance  |
+| `sorobanRpcUrl`     | `string`                | No       | Soroban RPC URL used for NFT minting        |
+| `userKey`           | `string`                | No       | Signed-in user id; changing it resets the session |
+
+The full reference is in the [SDK README](https://github.com/VenaLabs-Officiel/Stellar-SDK#props).
 
 ## Authentication Flow
 
@@ -85,13 +87,13 @@ import "@venalabs/stellar-sdk/style.css";
    └─> includes session cookies (credentials: 'include')
 
 3. Vite proxy forwards to http://localhost:8081
-   └─> Backend authenticates user & calls Venalabs API with API secret
+   └─> Backend authenticates user & calls VenaLabs API with API secret
 
-4. Backend returns { accessToken: "..." }
+4. Backend returns { token: "..." }
    └─> SDK uses token for authenticated API requests
 ```
 
-The API secret is **never exposed on the client**. The backend handles all secret-based authentication and returns a short-lived access token.
+The API secret is **never exposed on the client**. The backend handles all secret-based authentication and returns a user access token, valid for 24 hours.
 
 ## Theme Customization
 
@@ -142,4 +144,8 @@ In production, configure your reverse proxy (Nginx, Caddy, etc.) to route `/api/
 
 - **React** 18 + **TypeScript** 5.4
 - **Vite** 5.2 (dev server & build)
-- **@venalabs/stellar-sdk** ^1.0.3
+- **@venalabs/stellar-sdk** ^2.1.0
+
+## License
+
+MIT, see [LICENSE](./LICENSE).
